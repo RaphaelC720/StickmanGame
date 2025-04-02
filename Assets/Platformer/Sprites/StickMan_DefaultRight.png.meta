@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      StickMan_DefaultRight_0: 1377184994412995368
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

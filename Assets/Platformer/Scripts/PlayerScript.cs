@@ -33,6 +33,8 @@ public class PlayerScript : MonoBehaviour
     
     //My Sound Effects
     public AudioClip JumpSFX;
+
+    public GameObject Wheel;
     
     void Start()
     {
@@ -63,7 +65,7 @@ public class PlayerScript : MonoBehaviour
         //By default, I move like I moved last frame
         Vector2 vel = RB.linearVelocity;
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         { 
             //If I hit right, move right
             vel.x = Speed;
@@ -71,7 +73,7 @@ public class PlayerScript : MonoBehaviour
             FacingLeft = false;
             Debug.Log("Right");
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.A))
         { 
             //If I hit left, move right
             vel.x = -Speed;
@@ -93,7 +95,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //If I hit Z and can jump, jump
-        if (Input.GetKeyDown(KeyCode.Z) && CanJump())
+        if (Input.GetKeyDown(KeyCode.Space) && CanJump())
         { 
             vel.y = JumpPower;
             //Emit 5 dust cloud particles
@@ -104,9 +106,6 @@ public class PlayerScript : MonoBehaviour
 
         //Here I actually feed the Rigidbody the movement I want
         RB.linearVelocity = vel;
-        //Use my FacingLeft variable to make my sprite face the right way
-        SR.flipX = FacingLeft;
-
         //If I fall into the void...
         if (transform.position.y < -20)
         {
@@ -114,8 +113,18 @@ public class PlayerScript : MonoBehaviour
             SceneManager.LoadScene("You Lose");
         }
 
+        //Other controlls. other than jump/move
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            OpenWheel();
+        }
     }
 
+
+    public void OpenWheel()
+    {
+        Wheel.SetActive(!Wheel.activeSelf);
+    }
     //I use this function to track if I can jump or not
     //Right now it's very simple, but has a secret edge case bug
     //Can you find the bug?
@@ -150,4 +159,6 @@ public class PlayerScript : MonoBehaviour
         //If I stop touching something solid, mark me as not being on the ground
         OnGround = false;
     }
+
+    
 }
